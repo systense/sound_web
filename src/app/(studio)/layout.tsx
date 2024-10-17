@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Admin / Blind Whales",
+  title: "Admin / Falling Whale",
 };
 
 export default function RootLayout({

@@ -3,7 +3,7 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 
 export const metadata: Metadata = {
-  title: "Blind Whales",
+  title: "Falling Whale",
 };
 
 export default function RootLayout({
@@ -13,11 +13,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="p-[10px] antialiased">
-        <div className="md:flex">
+      <body className="antialiased">
+        <main className="p-[10px] md:flex md:py-[40px] md:px-[20px]">
           <Header />
-          <main className="">{children}</main>
-        </div>
+          {children}
+        </main>
       </body>
     </html>
   );
