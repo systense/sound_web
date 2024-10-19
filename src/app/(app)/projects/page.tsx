@@ -27,7 +27,7 @@ export default async function Projects() {
   `);
 
   return (
-    <div className="md:max-w-[900px]">
+    <div className="md:max-w-[900px] w-full">
       {projects.map((project) => (
         <div
           key={project._id}

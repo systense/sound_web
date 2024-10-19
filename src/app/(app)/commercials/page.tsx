@@ -26,8 +26,10 @@ export default async function Commercials() {
     }
   `);
 
+  console.log(commercials);
+
   return (
-    <div className="md:max-w-[900px]">
+    <div className="md:max-w-[900px] w-full">
       {commercials.map((commercial) => (
         <div
           key={commercial._id}
