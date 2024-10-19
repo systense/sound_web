@@ -15,6 +15,8 @@ interface Commercial extends SanityDocument {
   links: LinkItem[];
 }
 
+export const revalidate = 60;
+
 export default async function Commercials() {
   const commercials: Commercial[] = await client.fetch(`
     *[_type == "commercial"] | order(date desc) {
@@ -25,8 +27,6 @@ export default async function Commercials() {
       links
     }
   `);
-
-  console.log(commercials);
 
   return (
     <div className="md:max-w-[900px] w-full">
