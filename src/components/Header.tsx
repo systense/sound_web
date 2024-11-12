@@ -21,6 +21,15 @@ export const Header = async () => {
             </li>
           </ul>
         </nav>
+        <div>
+          <Link
+            href="mailto:tofallingwhale@gmail.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            tofallingwhale@gmail.com
+          </Link>
+        </div>
       </div>
     </header>
   );
