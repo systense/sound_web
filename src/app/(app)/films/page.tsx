@@ -1,8 +1,8 @@
 import { client } from "@/sanity/lib/client";
 import { SanityDocument } from "sanity";
 import { PortableTextBlock } from "@portabletext/types";
-import { Embed } from "@/components/Embed";
 import { PortableText } from "@portabletext/react";
+import { Embed } from "@/components/Embed";
 import Image from "next/image";
 
 type LinkItem = {
@@ -23,7 +23,7 @@ type LinkItem = {
   height?: number;
 };
 
-interface Commercial extends SanityDocument {
+interface Film extends SanityDocument {
   title: string;
   text: PortableTextBlock[];
   links: LinkItem[];
@@ -47,9 +47,9 @@ const portableTextComponents = {
   },
 };
 
-export default async function Commercials() {
-  const commercials: Commercial[] = await client.fetch(`
-    *[_type == "commercial"] | order(date desc) {
+export default async function Films() {
+  const films: Film[] = await client.fetch(`
+    *[_type == "film"] | order(date desc) {
       _id,
       title,
       date,
@@ -76,14 +76,14 @@ export default async function Commercials() {
 
   return (
     <div className="md:max-w-[900px] w-full">
-      {commercials.map((commercial) => (
+      {films.map((film) => (
         <div
-          key={commercial._id}
+          key={film._id}
           className="space-y-[10px] mb-[60px] md:flex md:flex-row md:space-y-[-3px] md:justify-between"
         >
           <div className="space-y-[10px] mb-[16px] md:mb-[0] md:w-[70%]">
-            {commercial.links &&
-              commercial.links.map((linkItem, idx) => {
+            {film.links &&
+              film.links.map((linkItem, idx) => {
                 const coverAsset = linkItem.cover?.asset;
 
                 return (
@@ -110,11 +110,11 @@ export default async function Commercials() {
           </div>
           <div className="md:w-[26.5%]">
             <div className="md:sticky md:top-[38px]">
-              <h2 className="mb-[12px]">{commercial.title}</h2>
-              {commercial.text && (
+              <h2 className="mb-[12px]">{film.title}</h2>
+              {film.text && (
                 <div className="space-y-[12px]">
                   <PortableText
-                    value={commercial.text}
+                    value={film.text}
                     components={portableTextComponents}
                   />
                 </div>

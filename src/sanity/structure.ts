@@ -6,12 +6,15 @@ export const structure: StructureResolver = (S) =>
     .title("Falling Whale")
     .items([
       S.documentTypeListItem("project").title("Projects"),
+      S.documentTypeListItem("film").title("Films"),
       S.documentTypeListItem("commercial").title("Commercials"),
       S.documentTypeListItem("musicLibrary").title("Music Library"),
       S.divider(),
       ...S.documentTypeListItems().filter(
         (item) =>
           item.getId() &&
-          !["project", "commercial", "musicLibrary"].includes(item.getId()!)
+          !["project", "film", "commercial", "musicLibrary"].includes(
+            item.getId()!
+          )
       ),
     ]);

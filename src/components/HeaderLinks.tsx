@@ -17,6 +17,14 @@ export const HeaderLinks = () => {
       </li>
       <li>
         <Link
+          className={pathname === "/films" ? "no-underline" : ""}
+          href="/films"
+        >
+          Films
+        </Link>
+      </li>
+      <li>
+        <Link
           className={pathname === "/commercials" ? "no-underline" : ""}
           href="/commercials"
         >
