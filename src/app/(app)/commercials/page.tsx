@@ -2,6 +2,7 @@ import { client } from "@/sanity/lib/client";
 import { SanityDocument } from "sanity";
 import { PortableTextBlock } from "@portabletext/types";
 import { Embed } from "@/components/Embed";
+import { PortableText } from "@portabletext/react";
 
 type LinkItem = {
   link: string;
@@ -16,6 +17,22 @@ interface Commercial extends SanityDocument {
 }
 
 export const revalidate = 60;
+
+const portableTextComponents = {
+  marks: {
+    link: ({
+      value = { href: "#" },
+      children,
+    }: {
+      value?: { href: string };
+      children: React.ReactNode;
+    }) => (
+      <a href={value.href} target="_blank" rel="noopener noreferrer">
+        {children}
+      </a>
+    ),
+  },
+};
 
 export default async function Commercials() {
   const commercials: Commercial[] = await client.fetch(`
@@ -52,9 +69,10 @@ export default async function Commercials() {
               <h2 className="mb-[12px]">{commercial.title}</h2>
               {commercial.text && (
                 <div className="space-y-[12px]">
-                  {commercial.text.map((block, idx) => (
-                    <p key={idx}>{block.children?.[0]?.text}</p>
-                  ))}
+                  <PortableText
+                    value={commercial.text}
+                    components={portableTextComponents}
+                  />
                 </div>
               )}
             </div>

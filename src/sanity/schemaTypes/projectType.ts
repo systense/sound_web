@@ -28,14 +28,19 @@ export const projectType = defineType({
           type: "object",
           name: "linkItem",
           title: "Link Item",
+          validation: (Rule) => Rule.required(),
           fields: [
+            {
+              name: "cover",
+              type: "image",
+              title: "Cover",
+            },
             {
               name: "link",
               type: "url",
               title: "Link",
               description: "Embed src",
-              validation: (Rule) =>
-                Rule.required().uri({ allowRelative: false }),
+              validation: (Rule) => Rule.uri({ allowRelative: false }),
             },
             {
               name: "width",
@@ -48,6 +53,12 @@ export const projectType = defineType({
               title: "Height",
             },
           ],
+          preview: {
+            select: {
+              title: "link",
+              media: "cover",
+            },
+          },
         }),
       ],
     }),
