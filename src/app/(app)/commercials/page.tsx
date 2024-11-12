@@ -3,9 +3,22 @@ import { SanityDocument } from "sanity";
 import { PortableTextBlock } from "@portabletext/types";
 import { Embed } from "@/components/Embed";
 import { PortableText } from "@portabletext/react";
+import Image from "next/image";
 
 type LinkItem = {
   link: string;
+  cover?: {
+    asset: {
+      url: string;
+      metadata: {
+        lqip: string;
+        dimensions: {
+          width: number;
+          height: number;
+        };
+      };
+    };
+  };
   width?: number;
   height?: number;
 };
@@ -41,7 +54,23 @@ export default async function Commercials() {
       title,
       date,
       text,
-      links
+      links[]{
+        link,
+        width,
+        height,
+        cover{
+          asset->{
+            url,
+            metadata {
+              lqip,
+              dimensions {
+                width,
+                height
+              }
+            }
+          }
+        }
+      }
     }
   `);
 
@@ -54,15 +83,30 @@ export default async function Commercials() {
         >
           <div className="space-y-[10px] mb-[16px] md:w-[70%]">
             {commercial.links &&
-              commercial.links.map((linkItem, idx) => (
-                <div key={idx}>
-                  <Embed
-                    link={linkItem.link}
-                    width={linkItem.width}
-                    height={linkItem.height}
-                  />
-                </div>
-              ))}
+              commercial.links.map((linkItem, idx) => {
+                const coverAsset = linkItem.cover?.asset;
+
+                return (
+                  <div key={idx} className="space-y-[10px]">
+                    {coverAsset?.url && (
+                      <Image
+                        src={coverAsset.url}
+                        alt={`Cover for link ${idx + 1}`}
+                        width={coverAsset.metadata.dimensions.width}
+                        height={coverAsset.metadata.dimensions.height}
+                        placeholder="blur"
+                        blurDataURL={coverAsset.metadata.lqip}
+                        className="w-full h-auto"
+                      />
+                    )}
+                    <Embed
+                      link={linkItem.link}
+                      width={linkItem.width}
+                      height={linkItem.height}
+                    />
+                  </div>
+                );
+              })}
           </div>
           <div className="md:w-[26.5%]">
             <div className="md:sticky md:top-[38px]">

@@ -8,8 +8,6 @@ interface EmbedProps {
 }
 
 export const Embed: React.FC<EmbedProps> = ({ link, width, height }) => {
-  console.log(link);
-
   if (!link) return null;
 
   // YouTube patterns
