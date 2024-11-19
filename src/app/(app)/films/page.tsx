@@ -97,6 +97,7 @@ export default async function Films() {
                         placeholder="blur"
                         blurDataURL={coverAsset.metadata.lqip}
                         className="w-full h-auto"
+                        quality={95}
                       />
                     )}
                     <Embed
